@@ -3,9 +3,7 @@ import 'package:flutter_app/widget/bottom_navigation_bar_demo.dart';
 import 'package:flutter_app/widget/drawer_demo.dart';
 import 'package:flutter_app/widget/listview_demo.dart';
 
-/**
- * sizebox布局使用
- */
+///sizebox布局使用
 void main() => runApp(App());
 
 class App extends StatelessWidget {
@@ -22,7 +20,6 @@ class App extends StatelessWidget {
         splashColor: Colors.blue, //Material风格中按钮水波纹颜色
       ),
     );
-    ;
   }
 }
 

@@ -3,9 +3,7 @@ import 'package:flutter_app/widget/bottom_navigation_bar_demo.dart';
 import 'package:flutter_app/widget/drawer_demo.dart';
 import 'package:flutter_app/widget/listview_demo.dart';
 
-/**
- * AspectRatio使用
- */
+///GridView：网格视图（GridView.count），交叉轴上元素的个数是固定的
 void main() => runApp(App());
 
 class App extends StatelessWidget {
@@ -69,7 +67,7 @@ class Home extends StatelessWidget {
         body: TabBarView(
           children: <Widget>[
             ListViewDemo(),
-            LayoutDemo(),
+            ViewDemo(),
             Icon(Icons.directions_bike, size: 128, color: Colors.blue),
           ],
         ),
@@ -80,52 +78,30 @@ class Home extends StatelessWidget {
   }
 }
 
-class LayoutDemo extends StatelessWidget {
+class ViewDemo extends StatelessWidget {
+  List<Widget> _gridItemBuilder(int length) {
+    return List.generate(length, (int index) {
+      return Container(
+        color: Colors.grey[300],
+        alignment: Alignment(0, 0),
+        child: Text(
+          'Item$index',
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+        ),
+      );
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Container(
-        child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        AspectRatio(
-          aspectRatio: 16.0 / 9.0,
-          child: Container(
-            color: Color.fromRGBO(3, 54, 255, 1.0),
-          ),
-        )
-      ],
-    )
-//      child: Column(
-//        mainAxisAlignment: MainAxisAlignment.center,
-//        children: <Widget>[
-//          SizedBox(
-//            width: 150,
-//            height: 150,
-//            child: Container(
-//              decoration: BoxDecoration(
-//                color: Color.fromRGBO(3, 54, 255, 1.0),
-//                borderRadius: BorderRadius.circular(8.0),
-//              ),
-//              child: Icon(Icons.ac_unit, color: Colors.white, size: 32.0),
-//            ),
-//          ),
-//          SizedBox(//可以使用SizeBox空间间距
-//            height: 20,
-//          ),
-//          SizedBox(
-//            width: 150,
-//            height: 150,
-//            child: Container(
-//              decoration: BoxDecoration(
-//                color: Color.fromRGBO(3, 54, 255, 1.0),
-//                borderRadius: BorderRadius.circular(8.0),
-//              ),
-//              child: Icon(Icons.brightness_1, color: Colors.white, size: 32.0),
-//            ),
-//          )
-//        ],
-//      ),
-        );
+    return GridView.count(
+      crossAxisCount: 3,//交叉轴上item数量
+      crossAxisSpacing: 8,
+      mainAxisSpacing: 8,
+      padding: EdgeInsets.all(8),
+      children: _gridItemBuilder(100),
+//      scrollDirection: Axis.horizontal,
+    );
   }
 }

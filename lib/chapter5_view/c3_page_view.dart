@@ -3,8 +3,10 @@ import 'package:flutter_app/widget/bottom_navigation_bar_demo.dart';
 import 'package:flutter_app/widget/drawer_demo.dart';
 import 'package:flutter_app/widget/listview_demo.dart';
 
+import '../model/post.dart';
+
 /**
- * AspectRatio使用
+ * PageView.builder 按需生成页面
  */
 void main() => runApp(App());
 
@@ -69,7 +71,7 @@ class Home extends StatelessWidget {
         body: TabBarView(
           children: <Widget>[
             ListViewDemo(),
-            LayoutDemo(),
+            ViewDemo(),
             Icon(Icons.directions_bike, size: 128, color: Colors.blue),
           ],
         ),
@@ -80,52 +82,42 @@ class Home extends StatelessWidget {
   }
 }
 
-class LayoutDemo extends StatelessWidget {
+class ViewDemo extends StatelessWidget {
+  Widget _pageItemBuilder(BuildContext context, int index) {
+    return Stack(
+      children: <Widget>[
+        SizedBox.expand(
+          child: Image.network(
+            data[index].imageUrl,
+            fit: BoxFit.cover,
+          ),
+        ),
+        Positioned(
+          bottom: 10,
+          left: 10,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                data[index].title,
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              Text(
+                data[index].author,
+                style: TextStyle(fontWeight: FontWeight.bold),
+              )
+            ],
+          ),
+        )
+
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Container(
-        child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        AspectRatio(
-          aspectRatio: 16.0 / 9.0,
-          child: Container(
-            color: Color.fromRGBO(3, 54, 255, 1.0),
-          ),
-        )
-      ],
-    )
-//      child: Column(
-//        mainAxisAlignment: MainAxisAlignment.center,
-//        children: <Widget>[
-//          SizedBox(
-//            width: 150,
-//            height: 150,
-//            child: Container(
-//              decoration: BoxDecoration(
-//                color: Color.fromRGBO(3, 54, 255, 1.0),
-//                borderRadius: BorderRadius.circular(8.0),
-//              ),
-//              child: Icon(Icons.ac_unit, color: Colors.white, size: 32.0),
-//            ),
-//          ),
-//          SizedBox(//可以使用SizeBox空间间距
-//            height: 20,
-//          ),
-//          SizedBox(
-//            width: 150,
-//            height: 150,
-//            child: Container(
-//              decoration: BoxDecoration(
-//                color: Color.fromRGBO(3, 54, 255, 1.0),
-//                borderRadius: BorderRadius.circular(8.0),
-//              ),
-//              child: Icon(Icons.brightness_1, color: Colors.white, size: 32.0),
-//            ),
-//          )
-//        ],
-//      ),
-        );
+    return PageView.builder(
+        itemCount: data.length, itemBuilder: _pageItemBuilder);
   }
 }

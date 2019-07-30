@@ -20,7 +20,6 @@ class App extends StatelessWidget {
         splashColor: Colors.blue, //Material风格中按钮水波纹颜色
       ),
     );
-    ;
   }
 }
 

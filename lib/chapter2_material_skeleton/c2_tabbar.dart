@@ -19,7 +19,7 @@ class App extends StatelessWidget{
             highlightColor: Color.fromRGBO(255, 0, 0, 0.5),//Material风格中按下去背景颜色
             splashColor: Colors.blue,//Material风格中按钮水波纹颜色
         ),
-    );;
+    );
   }
 }
 
